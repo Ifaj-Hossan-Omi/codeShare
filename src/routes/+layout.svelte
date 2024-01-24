@@ -26,8 +26,10 @@
 </script>
 
 <AppShell>
-	<AppBar>
-		<h3 class="text-left">Code Share</h3>
-	</AppBar>
+	<svelte:fragment slot="header">
+		<AppBar>
+			<h3 class="text-left">Code Share</h3>
+		</AppBar>
+	</svelte:fragment>
 	<slot />
 </AppShell>
