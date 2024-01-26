@@ -1,11 +1,17 @@
 <script lang="ts">
+	import { snippetStore, addSnippet } from '../SnippetStore';
 	import CodeSnippetCard from './../CodeSnippetCard.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 
 	let formdata: CodeSnippetInput = {
 		title: '',
 		language: 'html',
 		code: ''
 	};
+
+	snippetStore.set(data.snippets);
 </script>
 
 <div class="flex justify-center">
@@ -38,10 +44,25 @@
 					bind:value={formdata.code}
 				/>
 			</label>
+			<button
+				type="button"
+				class="btn btn-sm variant-filled-primary"
+				on:click={() => addSnippet(formdata)}
+			>
+				Creat Snippet</button
+			>
 		</div>
 		<div class="text-center py-6">
 			<h2>My Code Snippets</h2>
 		</div>
-		<CodeSnippetCard />
+		{#each $snippetStore as snippet, index}
+			<!-- <CodeSnippetCard
+				title={snippet.title}
+				language={snippet.language}
+				code={snippet.code}
+				favorite={snippet.favorite}
+			/> -->
+			<CodeSnippetCard {snippet} {index} />
+		{/each}
 	</div>
 </div>
